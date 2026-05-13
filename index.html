@@ -71,8 +71,9 @@
     .scroll-header .white { color: var(--white); }
     .scroll-header .red { color: var(--red); }
     .hero-inner {
-      max-width: 1100px;
+      max-width: 980px;
       width: 100%;
+      margin: 0 auto;
     }
     .reveal {
       opacity: 0;
@@ -146,6 +147,13 @@
     .blocks {
       background: #0c0c0c;
       border-top: 2px solid #1a1a1a;
+      display: flex;
+      justify-content: center;
+      padding: 0 1rem;
+    }
+    .blocks-inner {
+      width: 100%;
+      max-width: 980px;
     }
     .block {
       max-width: 1100px;
@@ -173,19 +181,82 @@
       text-transform: uppercase;
     }
     .line em { color: var(--red); font-style: normal; }
-    .stat-row {
+    .debt-table-wrap {
+      margin-top: 0.6rem;
       display: flex;
-      flex-wrap: wrap;
-      gap: 0.55rem;
-      margin-top: 0.35rem;
+      justify-content: center;
     }
-    .stat {
-      border-left: 4px solid var(--yellow);
-      background: #171717;
-      color: #fff3b2;
-      padding: 0.42rem 0.6rem;
+    .debt-table {
+      width: 100%;
+      max-width: 760px;
+      border-collapse: collapse;
+      text-align: left;
+      border: 1px solid #2c2c2c;
+      background: #141414;
+    }
+    .debt-table th,
+    .debt-table td {
+      padding: 0.7rem 0.75rem;
+      border: 1px solid #2c2c2c;
+    }
+    .debt-table th {
+      font-family: "Montserrat", sans-serif;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: #bfbfbf;
+      background: #101010;
+    }
+    .debt-table td {
       font-weight: 700;
-      font-size: 0.9rem;
+      color: #ffffff;
+    }
+    .debt-table .amount {
+      color: #ffd0d0;
+      white-space: nowrap;
+    }
+    .fact-dropdown {
+      margin-top: 0.85rem;
+      border: 1px solid #2d2d2d;
+      background: #111111;
+      text-align: left;
+    }
+    .fact-dropdown summary {
+      cursor: pointer;
+      list-style: none;
+      padding: 0.75rem 0.85rem;
+      font-family: "Montserrat", sans-serif;
+      font-size: 0.82rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .fact-dropdown summary::-webkit-details-marker {
+      display: none;
+    }
+    .fact-dropdown summary::after {
+      content: "+";
+      color: var(--red);
+      font-size: 1.1rem;
+      line-height: 1;
+    }
+    .fact-dropdown[open] summary::after {
+      content: "-";
+    }
+    .fact-content {
+      border-top: 1px solid #262626;
+      padding: 0.8rem 0.85rem 0.9rem;
+      color: #e5e5e5;
+      display: grid;
+      gap: 0.7rem;
+      font-size: 0.95rem;
+      line-height: 1.45;
+    }
+    .fact-content strong {
+      color: #ffffff;
     }
     .final {
       background: var(--red);
@@ -246,29 +317,58 @@
   </section>
 
   <section class="blocks" id="facts">
-    <div class="block reveal">
-      <p class="label">Fact 1</p>
-      <p class="line">That headline includes <em>two different debts</em>.</p>
-      <div class="stat-row">
-        <span class="stat">$21B taxpayer-supported debt</span>
-        <span class="stat">$13B Crown corporation debt</span>
+    <div class="blocks-inner">
+      <div class="block reveal">
+        <p class="label">Fact 1</p>
+        <p class="line">That headline includes <em>two different debts</em>.</p>
+        <div class="debt-table-wrap">
+          <table class="debt-table" aria-label="Debt type breakdown">
+            <thead>
+              <tr>
+                <th>Debt Type</th>
+                <th>Amount</th>
+                <th>What It Means</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Taxpayer-Supported Debt</td>
+                <td class="amount">$21B</td>
+                <td>Backed by provincial revenues, including taxes.</td>
+              </tr>
+              <tr>
+                <td>Crown Corporation Debt</td>
+                <td class="amount">$13B</td>
+                <td>Borrowed by SaskPower, SaskEnergy, and SaskTel, intended to be repaid via utility revenue.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <details class="fact-dropdown">
+          <summary>Click to see what this means for taxpayers</summary>
+          <div class="fact-content">
+            <p><strong>Taxpayer-supported debt ($21B):</strong> this is debt ultimately backed by provincial revenues, including taxes. If this debt grows faster than revenue, taxpayers carry more long-term risk through future budgets and service pressure.</p>
+            <p><strong>Crown corporation debt ($13B):</strong> this is borrowing by SaskPower, SaskEnergy, and SaskTel to build and maintain infrastructure. It is expected to be repaid through utility revenues, not directly from taxes.</p>
+            <p><strong>Why the split matters:</strong> if Crown revenues weaken, rate hikes can rise first. If that pressure becomes severe, the risk can spill back into provincial finances over time.</p>
+          </div>
+        </details>
       </div>
-    </div>
-    <div class="block reveal">
-      <p class="label">Fact 2</p>
-      <p class="line">Net debt climbed from <em>$5.6B to over $16B</em> (2015 to 2024).</p>
-    </div>
-    <div class="block reveal">
-      <p class="label">Fact 3</p>
-      <p class="line">Interest costs now run about <em>$878M every year</em>.</p>
-    </div>
-    <div class="block reveal">
-      <p class="label">Fact 4</p>
-      <p class="line">SaskPower's debt ratio hit <em>76.2%</em>, above its 75% ceiling.</p>
-    </div>
-    <div class="block reveal">
-      <p class="label">Fact 5</p>
-      <p class="line">When Crown finances weaken, families <em>WILL pay through bills first, taxes second</em>.</p>
+      <div class="block reveal">
+        <p class="label">Fact 2</p>
+        <p class="line">Net debt climbed from <em>$5.6B to over $16B</em> (2015 to 2024).</p>
+      </div>
+      <div class="block reveal">
+        <p class="label">Fact 3</p>
+        <p class="line">Interest costs now run about <em>$878M every year</em>.</p>
+      </div>
+      <div class="block reveal">
+        <p class="label">Fact 4</p>
+        <p class="line">SaskPower's debt ratio hit <em>76.2%</em>, above its 75% ceiling.</p>
+      </div>
+      <div class="block reveal">
+        <p class="label">Fact 5</p>
+        <p class="line">When Crown finances weaken, families <em>WILL pay through bills first, taxes second</em>.</p>
+      </div>
     </div>
   </section>
 
