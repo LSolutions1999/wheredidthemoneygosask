@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>wheredidthemoneygosk</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #070707;
+      --red: #ff2020;
+      --yellow: #ff2020;
+      --white: #ffffff;
+      --muted: #c8c8c8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Roboto", sans-serif;
+      color: var(--white);
+      background: #000;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .bg {
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(255,255,255,0.09), transparent 35%),
+        radial-gradient(circle at 80% 70%, rgba(255,255,255,0.08), transparent 30%),
+        repeating-linear-gradient(35deg, rgba(255,255,255,0.03) 0 14px, transparent 14px 30px),
+        #090909;
+      filter: contrast(1.1) grayscale(1);
+      z-index: -2;
+    }
+    .vignette {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle, transparent 20%, rgba(0,0,0,0.78) 90%);
+      z-index: -1;
+    }
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 5.4rem 1rem 2rem;
+    }
+    .scroll-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 20;
+      background: rgba(0, 0, 0, 0.88);
+      border-bottom: 1px solid #252525;
+      text-align: center;
+      padding: 0.82rem 1rem;
+      backdrop-filter: blur(5px);
+    }
+    .scroll-header .text {
+      font-family: "Montserrat", sans-serif;
+      font-weight: 900;
+      font-size: clamp(0.95rem, 2.2vw, 1.45rem);
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      line-height: 1;
+    }
+    .scroll-header .white { color: var(--white); }
+    .scroll-header .red { color: var(--red); }
+    .hero-inner {
+      max-width: 1100px;
+      width: 100%;
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 700ms ease, transform 700ms ease;
+      will-change: opacity, transform;
+    }
+    .reveal.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .title-top {
+      font-family: "Montserrat", sans-serif;
+      font-size: clamp(2rem, 6.8vw, 5.2rem);
+      font-weight: 900;
+      line-height: 0.95;
+      text-transform: uppercase;
+      color: var(--yellow);
+      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.55);
+    }
+    .title-sub {
+      font-family: "Montserrat", sans-serif;
+      font-size: clamp(1.35rem, 4.9vw, 3.5rem);
+      font-weight: 800;
+      line-height: 1;
+      margin-top: 0.2rem;
+      text-transform: uppercase;
+    }
+    .strike {
+      height: 10px;
+      width: min(620px, 92%);
+      margin: 1rem auto 1.4rem;
+      background: linear-gradient(90deg, transparent 0%, var(--yellow) 15%, var(--yellow) 85%, transparent 100%);
+      filter: blur(0.4px);
+    }
+    .kicker {
+      font-family: "Montserrat", sans-serif;
+      font-weight: 800;
+      font-size: clamp(1.4rem, 4.7vw, 3rem);
+      line-height: 1.06;
+      text-transform: uppercase;
+    }
+    .kicker .white { color: var(--white); }
+    .kicker .red { color: var(--red); }
+    .counter {
+      margin-top: 0.2rem;
+      font-family: "Montserrat", sans-serif;
+      font-size: clamp(2.2rem, 8.8vw, 8.2rem);
+      line-height: 0.98;
+      font-weight: 900;
+      letter-spacing: 0.01em;
+      text-shadow: 0 6px 26px rgba(0,0,0,0.6);
+    }
+    .counter .small {
+      font-size: 0.58em;
+      opacity: 0.95;
+    }
+    .scroll-cta {
+      margin-top: 1.1rem;
+      display: inline-block;
+      color: var(--white);
+      border: 2px solid rgba(255,255,255,0.45);
+      padding: 0.6rem 0.95rem;
+      text-decoration: none;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-size: 0.8rem;
+      background: rgba(0,0,0,0.4);
+    }
+    .blocks {
+      background: #0c0c0c;
+      border-top: 2px solid #1a1a1a;
+    }
+    .block {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1.2rem 1rem;
+      border-bottom: 1px solid #242424;
+      display: grid;
+      gap: 0.5rem;
+      grid-template-columns: 1fr;
+      align-items: center;
+    }
+    .label {
+      font-family: "Montserrat", sans-serif;
+      font-weight: 800;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #979797;
+    }
+    .line {
+      font-family: "Montserrat", sans-serif;
+      font-size: clamp(1.2rem, 3.7vw, 2.6rem);
+      font-weight: 800;
+      line-height: 1.05;
+      text-transform: uppercase;
+    }
+    .line em { color: var(--red); font-style: normal; }
+    .stat-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      margin-top: 0.35rem;
+    }
+    .stat {
+      border-left: 4px solid var(--yellow);
+      background: #171717;
+      color: #fff3b2;
+      padding: 0.42rem 0.6rem;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+    .final {
+      background: var(--red);
+      color: #fff;
+      text-align: center;
+      padding: 2.3rem 1rem 2.6rem;
+    }
+    .final h2 {
+      font-family: "Montserrat", sans-serif;
+      font-weight: 900;
+      text-transform: uppercase;
+      font-size: clamp(1.9rem, 6vw, 4.5rem);
+      line-height: 0.95;
+    }
+    .final p {
+      margin-top: 0.7rem;
+      font-size: clamp(1rem, 2.5vw, 1.35rem);
+      font-weight: 700;
+    }
+    .btn {
+      margin-top: 1rem;
+      display: inline-block;
+      text-decoration: none;
+      color: #ffffff;
+      background: #000000;
+      border: 2px solid #000000;
+      padding: 0.75rem 1rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      font-family: "Montserrat", sans-serif;
+    }
+    .btn:hover {
+      color: var(--red);
+    }
+    .foot {
+      text-align: center;
+      padding: 0.9rem 1rem 1.3rem;
+      color: var(--muted);
+      background: #0c0c0c;
+      font-size: 0.82rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg"></div>
+  <div class="vignette"></div>
+  <header class="scroll-header">
+    <p class="text"><span class="white">Where did the money go,</span> <span class="red">Saskatchewan?</span></p>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <h1 class="title-top reveal">Scott Moe's $40 Billion Debt Question</h1>
+      <div class="strike reveal"></div>
+      <h2 class="title-sub reveal">What the NDP and SaskParty dont want you to know</h2>
+    </div>
+  </section>
+
+  <section class="blocks" id="facts">
+    <div class="block reveal">
+      <p class="label">Fact 1</p>
+      <p class="line">That headline includes <em>two different debts</em>.</p>
+      <div class="stat-row">
+        <span class="stat">$21B taxpayer-supported debt</span>
+        <span class="stat">$13B Crown corporation debt</span>
+      </div>
+    </div>
+    <div class="block reveal">
+      <p class="label">Fact 2</p>
+      <p class="line">Net debt climbed from <em>$5.6B to over $16B</em> (2015 to 2024).</p>
+    </div>
+    <div class="block reveal">
+      <p class="label">Fact 3</p>
+      <p class="line">Interest costs now run about <em>$878M every year</em>.</p>
+    </div>
+    <div class="block reveal">
+      <p class="label">Fact 4</p>
+      <p class="line">SaskPower's debt ratio hit <em>76.2%</em>, above its 75% ceiling.</p>
+    </div>
+    <div class="block reveal">
+      <p class="label">Fact 5</p>
+      <p class="line">When Crown finances weaken, families <em>WILL pay through bills first, taxes second</em>.</p>
+    </div>
+  </section>
+
+  <section class="final reveal">
+    <h2 class="reveal">Demand an Independent Audit.</h2>
+    <p class="reveal">Ask your MLA why there is still no full value-for-money audit of SaskPower, SaskEnergy, and SaskTel.</p>
+    <a class="btn reveal" href="https://www.elections.sk.ca/voters/findmyconstituency/" target="_blank" rel="noopener noreferrer">Find Your MLA Constituency</a>
+  </section>
+
+  <footer class="foot">wheredidthemoneygosk</footer>
+  <script>
+    (function () {
+      const revealEls = document.querySelectorAll(".reveal");
+      const io = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("show");
+              io.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.18, rootMargin: "0px 0px -8% 0px" }
+      );
+
+      revealEls.forEach(function (el, i) {
+        el.style.transitionDelay = (i % 6) * 70 + "ms";
+        io.observe(el);
+      });
+    })();
+  </script>
+</body>
+</html>
